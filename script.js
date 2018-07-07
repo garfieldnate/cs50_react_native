@@ -69,3 +69,9 @@ function deleteTodo(index) {
     state.todos.splice(index, 1)
     updateDOM()
 }
+
+// Thoughts on this assignment:
+// State management is clumsy; I ended up passing list indices around to edit the correct list element.
+// Thank goodness for modern JS's string templates and forEach. It's already coming in handy!
+// It's hard to visualize what this will look like by looking at the code.
+// State updating should be done more cleanly; length of TODO list should determine itemCount, number with done=false should determine uncheckedCount.
