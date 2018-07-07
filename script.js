@@ -1,6 +1,7 @@
 const classNames = {
   TODO_ITEM: 'todo-container',
   TODO_CHECKBOX: 'todo-checkbox',
+  TODO_DONE: 'todo-done',
   TODO_TEXT: 'todo-text',
   TODO_DELETE: 'todo-delete',
 }
@@ -24,20 +25,38 @@ function newTodo() {
 }
 
 function addTodo(todo) {
-    state.todos.push(todo)
+    state.todos.push({'text': todo, 'done': false})
     state.itemCount++
     state.uncheckedCount++
 }
 
 function updateDOM() {
     list.innerHTML = ''
-    state.todos.forEach((todo) => {
-        list.innerHTML += getTODOHtml(todo)
+    state.todos.forEach((todo, i) => {
+        list.innerHTML += getTODOHtml(todo, i)
     });
     itemCountSpan.innerHTML = state.itemCount
     uncheckedCountSpan.innerHTML = state.uncheckedCount
 }
 
-function getTODOHtml (todo) {
-    return `<li class="${classNames.TODO_ITEM}"><input type="checkbox" class="${classNames.TODO_CHECKBOX}"><span class="${classNames.TODO_TEXT}">${todo}</span><span class="${classNames.TODO_DELETE}"> &#x2718;</span></li>`
+function getTODOHtml (todo, index) {
+    let classes = [classNames.TODO_ITEM]
+    if (todo.done) {
+        classes.push(classNames.TODO_DONE)
+    }
+    var checked = todo.done ? 'checked' : ''
+    return `<li class="${classes.join(' ')}"><input type="checkbox" onClick="checkClicked(this, ${index})" class="${classNames.TODO_CHECKBOX}" ${checked}><span class="${classNames.TODO_TEXT}">${todo.text}</span><span class="${classNames.TODO_DELETE}"> &#x2718;</span></li>`
+}
+
+function checkClicked(checkBoxElement, index) {
+    if(checkBoxElement.checked) {
+        checkBoxElement.parentElement.classList.add(classNames.TODO_DONE)
+        state.uncheckedCount--
+        state.todos[index].done = true
+    } else {
+        checkBoxElement.parentElement.classList.remove(classNames.TODO_DONE)
+        state.uncheckedCount++
+        state.todos[index].done = false
+    }
+    updateDOM()
 }

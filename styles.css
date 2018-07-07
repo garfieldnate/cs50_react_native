@@ -53,6 +53,10 @@ ul {
   color: red;
 }
 
+.todo-done .todo-text{
+  text-decoration: line-through;
+}
+
 .todo-checkbox {
   margin: 10px;
 }
