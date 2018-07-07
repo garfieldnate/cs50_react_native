@@ -50,6 +50,7 @@ ul {
 
 .todo-delete {
   margin: 10px;
+  color: red;
 }
 
 .todo-checkbox {

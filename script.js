@@ -39,5 +39,5 @@ function updateDOM() {
 }
 
 function getTODOHtml (todo) {
-    return '<li>' + todo + '</li>'
+    return `<li class="${classNames.TODO_ITEM}"><input type="checkbox" class="${classNames.TODO_CHECKBOX}"><span class="${classNames.TODO_TEXT}">${todo}</span><span class="${classNames.TODO_DELETE}"> &#x2718;</span></li>`
 }
