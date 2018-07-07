@@ -45,7 +45,7 @@ function getTODOHtml (todo, index) {
         classes.push(classNames.TODO_DONE)
     }
     var checked = todo.done ? 'checked' : ''
-    return `<li class="${classes.join(' ')}"><input type="checkbox" onClick="checkClicked(this, ${index})" class="${classNames.TODO_CHECKBOX}" ${checked}><span class="${classNames.TODO_TEXT}">${todo.text}</span><span class="${classNames.TODO_DELETE}"> &#x2718;</span></li>`
+    return `<li class="${classes.join(' ')}"><input type="checkbox" onClick="checkClicked(this, ${index})" class="${classNames.TODO_CHECKBOX}" ${checked}><span class="${classNames.TODO_TEXT}">${todo.text}</span><span class="${classNames.TODO_DELETE}" onClick="deleteTodo(${index})"> &#x2718;</span></li>`
 }
 
 function checkClicked(checkBoxElement, index) {
@@ -58,5 +58,14 @@ function checkClicked(checkBoxElement, index) {
         state.uncheckedCount++
         state.todos[index].done = false
     }
+    updateDOM()
+}
+
+function deleteTodo(index) {
+    state.itemCount--
+    if (!state.todos[index].done) {
+        state.uncheckedCount--
+    }
+    state.todos.splice(index, 1)
     updateDOM()
 }
