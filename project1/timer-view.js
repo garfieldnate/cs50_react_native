@@ -71,7 +71,7 @@ export default class TimerView extends React.Component{
       const timeLeft = isWork ? this.props.secondsPerWork : this.props.secondsPerRest
       this.setState((prevState, props) => {
         return {
-          ...this.state,
+          ...prevState,
           isWork: !this.state.isWork,
           timeLeft: timeLeft
         }

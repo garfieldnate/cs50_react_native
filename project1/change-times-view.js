@@ -18,7 +18,7 @@ export default class ChangeTimesView extends React.Component {
   }
 
   handleInputChange = propName => newVal => {
-    this.setState({workMinsInput: this.props.defaultWorkMins})
+    this.setState({workMinsInput: newVal})
   }
 
   render() {
