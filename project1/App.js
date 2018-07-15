@@ -7,10 +7,34 @@ class Timer extends React.Component {
     super(props);
     this.state = {
       isWork: true,
-      isTimerRunning: false,
+      isTimerRunning: true,
       timeLeft: this.props.secondsPerWork,
     }
-    setInterval(this.decrementSeconds, 1000)
+  }
+
+  static propTypes = {
+    secondsPerWork: PropTypes.number,
+    secondsPerRest: PropTypes.number,
+  }
+
+  render() {
+    return (
+      <Text>
+        {this.state.isWork ? 'Focus' : 'Rest'}
+        {'\n'}
+        {this.getTimeString(this.state.timeLeft)}
+      </Text>
+    )
+  }
+
+  componentDidMount() {
+    if(this.state.isTimerRunning) {
+      this.state.interval = setInterval(this.decrementSeconds, 1000)
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.interval)
   }
 
   decrementSeconds = () => {
@@ -33,25 +57,13 @@ class Timer extends React.Component {
     const remainderSeconds = seconds - minutes * 60
     return minutes + ":" + this.formatSeconds(remainderSeconds)
   }
-
-  render() {
-    return (
-      <Text>{this.getTimeString(this.state.timeLeft)}</Text>
-    )
-  }
-
-  static propTypes = {
-    secondsPerWork: PropTypes.number,
-    secondsPerRest: PropTypes.number,
-  }
 }
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up Ap.js to start working on your app!</Text>
-        <Timer secondsPerWork={70} secondsPerRest={60}></Timer>
+        <Timer secondsPerWork={25*60} secondsPerRest={5*60}></Timer>
       </View>
     );
   }
