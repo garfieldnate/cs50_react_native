@@ -38,7 +38,12 @@ class Timer extends React.Component {
   }
 
   componentDidUpdate = () => {
-    if (this.state.timeLeft < 1) {
+    if (this.state.timeLeft < 0) {
+      this.changeTimers()
+    }
+  }
+
+  changeTimers = () => {
       const isWork = !this.state.isWork
       const timeLeft = isWork ? this.props.secondsPerWork : this.props.secondsPerRest
       this.setState((prevState, props) => {
@@ -48,7 +53,6 @@ class Timer extends React.Component {
           'timeLeft': timeLeft
         }
       })
-    }
   }
 
   decrementSeconds = () => {
@@ -58,10 +62,6 @@ class Timer extends React.Component {
         'timeLeft': this.state.timeLeft - 1
       }
     })
-  }
-
-  timeIsUp = () => {
-
   }
 
   formatSeconds = (seconds) => {
