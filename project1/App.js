@@ -20,8 +20,18 @@ class Timer extends React.Component {
     })//, checkTime
   }
 
+  formatSeconds = (seconds) => {
+    if(seconds < 10) {
+      return "0" + seconds
+    } else {
+      return seconds
+    }
+  }
+
   getTimeString = (seconds) => {
-    return seconds
+    const minutes = Math.floor(seconds / 60)
+    const remainderSeconds = seconds - minutes * 60
+    return minutes + ":" + this.formatSeconds(remainderSeconds)
   }
 
   render() {
@@ -31,8 +41,8 @@ class Timer extends React.Component {
   }
 
   static propTypes = {
-    secondsPerWork: PropTypes.integer,
-    secondsPerRest: PropTypes.integer,
+    secondsPerWork: PropTypes.number,
+    secondsPerRest: PropTypes.number,
   }
 }
 
@@ -41,7 +51,7 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         <Text>Open up Ap.js to start working on your app!</Text>
-        <Timer secondsPerWork={60} secondsPerRest={60}></Timer>
+        <Timer secondsPerWork={70} secondsPerRest={60}></Timer>
       </View>
     );
   }
