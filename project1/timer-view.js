@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, StyleSheet, Text, View} from 'react-native';
 import {Constants} from 'expo'
 import PropTypes from 'prop-types'
+import {vibrate} from './utils'
 
 export default class TimerView extends React.Component{
   static propTypes = {
@@ -16,10 +17,12 @@ export default class TimerView extends React.Component{
   }
 
   render() {
+    const modeStyle = this.state.isWork ? styles.working : styles.resting
+    const modeText = this.state.isWork ? 'Focus' : 'Rest'
     return (
       <View style={styles.container}>
-        <Text style={[styles.mode, styles.working]} textAlign='center'>
-          {this.state.isWork ? 'Focus' : 'Rest'}
+        <Text style={[styles.mode, modeStyle]} textAlign='center'>
+          {modeText}
         </Text>
         <Text style={styles.timer}>
           {this.getTimeString(this.state.timeLeft)}
@@ -73,6 +76,7 @@ export default class TimerView extends React.Component{
           timeLeft: timeLeft
         }
       })
+      vibrate()
   }
 
   decrementSeconds = () => {
