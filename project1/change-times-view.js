@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#FFFFFC'
   },
   input: {
     padding: 5,

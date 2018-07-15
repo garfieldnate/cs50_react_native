@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, StyleSheet, Text, View, Row } from 'react-native';
+import {Constants} from 'expo'
 import PropTypes from 'prop-types'
 
 export default class TimerView extends React.Component{
@@ -17,28 +18,30 @@ export default class TimerView extends React.Component{
   render() {
     return (
       <View style={styles.container}>
-        <Text>
+        <Text style={[styles.mode, styles.working]} textAlign='center'>
           {this.state.isWork ? 'Focus' : 'Rest'}
-          {'\n'}
+        </Text>
+        <Text style={styles.timer}>
           {this.getTimeString(this.state.timeLeft)}
         </Text>
         <Button
           title="Edit"
           accessibilityLabel="Change the length of work and rest times"
-          color="#841584"
           onPress={this.props.onEditPress}
+          color="black"
         />
         <Button
           title="Reset"
           accessibilityLabel="Start the next work period"
-          color="#841584"
           onPress={this.reset}
+          style={styles.controls}
+          color="black"
         />
         <Button
           title="Pause/Start"
           accessibilityLabel="Pause or start the timer"
-          color="#841584"
           onPress={this.toggleTimerRunning}
+          color="black"
         />
       </View>
     )
@@ -114,7 +117,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#FFFFFC',
+    paddingTop: Constants.statusBarHeight
   },
+  mode: {
+    fontSize: 40,
+    height: 100,
+    textAlign: 'center',
+    padding: 20
+  },
+  working: {
+    backgroundColor: '#B2FF59'
+  },
+  resting: {
+    backgroundColor: '#BEB7A4'
+  },
+  timer: {
+    fontSize: 60,
+    textAlign: 'center'
+  }
 });
