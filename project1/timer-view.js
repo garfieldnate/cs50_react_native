@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View, Row } from 'react-native';
 import PropTypes from 'prop-types'
 
 export default class TimerView extends React.Component{
@@ -28,6 +28,12 @@ export default class TimerView extends React.Component{
           color="#841584"
           onPress={this.props.onEditPress}
         />
+        <Button
+          title="Reset"
+          accessibilityLabel="Start the next work period"
+          color="#841584"
+          onPress={this.reset}
+        />
       </View>
     )
   }
@@ -54,8 +60,8 @@ export default class TimerView extends React.Component{
       this.setState((prevState, props) => {
         return {
           ...this.state,
-          'isWork': !this.state.isWork,
-          'timeLeft': timeLeft
+          isWork: !this.state.isWork,
+          timeLeft: timeLeft
         }
       })
   }
@@ -64,7 +70,7 @@ export default class TimerView extends React.Component{
     this.setState((prevState, props) => {
       return {
         ...this.state,
-        'timeLeft': this.state.timeLeft - 1
+        timeLeft: this.state.timeLeft - 1
       }
     })
   }
@@ -81,6 +87,10 @@ export default class TimerView extends React.Component{
     const minutes = Math.floor(seconds / 60)
     const remainderSeconds = seconds - minutes * 60
     return minutes + ":" + this.formatSeconds(remainderSeconds)
+  }
+
+  reset = () => {
+    this.setState({isWork: true, timeLeft: this.props.secondsPerWork})
   }
 }
 
