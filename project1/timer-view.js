@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, StyleSheet, Text, View, Row } from 'react-native';
+import { Button, StyleSheet, Text, View} from 'react-native';
 import {Constants} from 'expo'
 import PropTypes from 'prop-types'
 

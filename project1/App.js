@@ -1,4 +1,5 @@
 import React from 'react';
+import {StatusBar} from 'react-native'
 import ChangeTimesView from './change-times-view.js'
 import TimerView from './timer-view.js'
 
@@ -27,6 +28,11 @@ export default class App extends React.Component {
         'editing': false
       }
     });
+  }
+
+  componentDidMount() {
+    // this is a focus app; hide distractions!
+    StatusBar.setHidden(true);
   }
 
   render() {
