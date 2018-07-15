@@ -1,12 +1,12 @@
 import React from 'react'
 import { Button, StyleSheet, Text, View } from 'react-native';
-import {PropTypes} from 'prop-types'
+import PropTypes from 'prop-types'
 
 export default class TimerView extends React.Component{
   static propTypes = {
-    onEditPress: PropTypes.func,
-    secondsPerWork: PropTypes.number,
-    secondsPerRest: PropTypes.number,
+    onEditPress: PropTypes.func.isRequired,
+    secondsPerWork: PropTypes.number.isRequired,
+    secondsPerRest: PropTypes.number.isRequired,
   }
   state = {
     isWork: true,

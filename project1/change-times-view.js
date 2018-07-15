@@ -1,37 +1,41 @@
 import React from 'react'
 import {Button, View, TextInput, StyleSheet} from 'react-native'
-import {PropTypes} from 'prop-types'
+import PropTypes from 'prop-types'
 
 export default class ChangeTimesView extends React.Component {
   static propTypes = {
-    'onAccept': PropTypes.func,
-    'onCancel': PropTypes.func,
-    'defaultWorkMins': PropTypes.number,
-    'defaultRestMins': PropTypes.number,
+    onAccept: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+    defaultWorkMins: PropTypes.number.isRequired,
+    defaultRestMins: PropTypes.number.isRequired,
   }
   state = {
-    'workMinsInput': this.props.defaultWorkMins,
-    'restMinsInput': this.props.defaultRestMins
+    workMinsInput: this.props.defaultWorkMins,
+    restMinsInput: this.props.defaultRestMins
+  }
+
+  handleInputChange = propName => newVal => {
+    // this.setState({[propName]: newVal})
   }
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={{paddingTop: 20}}>
         <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-          //onChangeText={(text) => check that it's a number}
-          value={""+this.state.workMins}
-          selectTextOnFocus={true}
-          maxLength={3}
-          keyboardType="numeric"
+          style={styles.input}
+          onChangeText={this.handleInputChange('workMinsInput')}
+          value=""//{""+this.state.workMins}
+          // selectTextOnFocus={true}
+          // maxLength={3}
+          // keyboardType="numeric"
         />
         <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-          //onChangeText={(text) => check that it's a number}
+          style={styles.input}
+          onChangeText={this.handleInputChange('restMinsInput')}
           value={""+this.state.restMins}
-          selectTextOnFocus={true}
-          maxLength={3}
-          keyboardType="numeric"
+          // selectTextOnFocus={true}
+          // maxLength={3}
+          // keyboardType="numeric"
         />
         <Button title="Done" onPress={this.props.onAccept}/>
         <Button title="Cancel" onPress={this.props.onCancel} />
@@ -47,4 +51,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  input: {
+    padding: 5,
+    borderColor: 'black',
+    borderWidth: 1
+  }
 });
