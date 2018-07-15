@@ -2,6 +2,9 @@ import React from 'react'
 import {Button, View, TextInput, StyleSheet} from 'react-native'
 import PropTypes from 'prop-types'
 
+// We can't control TextInput due to the issue below: https://github.com/facebook/react-native/issues/18219
+// Waiting for PR to be merged: https://github.com/facebook/react-native/pull/18278
+
 export default class ChangeTimesView extends React.Component {
   static propTypes = {
     onAccept: PropTypes.func.isRequired,
@@ -11,11 +14,11 @@ export default class ChangeTimesView extends React.Component {
   }
   state = {
     workMinsInput: this.props.defaultWorkMins,
-    restMinsInput: this.props.defaultRestMins
+    restMinsInput: this.props.defaultRestMins,
   }
 
   handleInputChange = propName => newVal => {
-    // this.setState({[propName]: newVal})
+    this.setState({workMinsInput: this.props.defaultWorkMins})
   }
 
   render() {
@@ -24,7 +27,7 @@ export default class ChangeTimesView extends React.Component {
         <TextInput
           style={styles.input}
           onChangeText={this.handleInputChange('workMinsInput')}
-          value=""//{""+this.state.workMins}
+          value={""+this.props.defaultWorkMins}
           // selectTextOnFocus={true}
           // maxLength={3}
           // keyboardType="numeric"
@@ -32,12 +35,12 @@ export default class ChangeTimesView extends React.Component {
         <TextInput
           style={styles.input}
           onChangeText={this.handleInputChange('restMinsInput')}
-          value={""+this.state.restMins}
+          value={""+this.props.defaultRestMins}
           // selectTextOnFocus={true}
           // maxLength={3}
           // keyboardType="numeric"
         />
-        <Button title="Done" onPress={this.props.onAccept}/>
+        <Button title="Done" onPress={() => this.props.onAccept(+this.state.workMinsInput,+this.state.restMinsInput)}/>
         <Button title="Cancel" onPress={this.props.onCancel} />
       </View>
     )

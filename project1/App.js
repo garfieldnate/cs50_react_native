@@ -35,6 +35,8 @@ export default class App extends React.Component {
         <ChangeTimesView
           onAccept={this.editTimers}
           onCancel={this.cancelEdit}
+          defaultWorkMins={this.state.workMins}
+          defaultRestMins={this.state.restMins}
         />
       )
     } else {
