@@ -27,21 +27,41 @@ class Timer extends React.Component {
     )
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     if(this.state.isTimerRunning) {
       this.state.interval = setInterval(this.decrementSeconds, 1000)
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     clearInterval(this.state.interval)
   }
 
+  componentDidUpdate = () => {
+    if (this.state.timeLeft < 1) {
+      const isWork = !this.state.isWork
+      const timeLeft = isWork ? this.props.secondsPerWork : this.props.secondsPerRest
+      this.setState((prevState, props) => {
+        return {
+          ...this.state,
+          'isWork': !this.state.isWork,
+          'timeLeft': timeLeft
+        }
+      })
+    }
+  }
+
   decrementSeconds = () => {
-    this.setState({
-      ...this.state,
-      'timeLeft': this.state.timeLeft - 1
-    })//, checkTime
+    this.setState((prevState, props) => {
+      return {
+        ...this.state,
+        'timeLeft': this.state.timeLeft - 1
+      }
+    })
+  }
+
+  timeIsUp = () => {
+
   }
 
   formatSeconds = (seconds) => {
@@ -63,7 +83,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Timer secondsPerWork={25*60} secondsPerRest={5*60}></Timer>
+        <Timer secondsPerWork={3} secondsPerRest={3}></Timer>
       </View>
     );
   }
