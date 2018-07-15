@@ -34,6 +34,12 @@ export default class TimerView extends React.Component{
           color="#841584"
           onPress={this.reset}
         />
+        <Button
+          title="Pause/Start"
+          accessibilityLabel="Pause or start the timer"
+          color="#841584"
+          onPress={this.toggleTimerRunning}
+        />
       </View>
     )
   }
@@ -68,9 +74,10 @@ export default class TimerView extends React.Component{
 
   decrementSeconds = () => {
     this.setState((prevState, props) => {
+      const newTimeLeft = prevState.isTimerRunning ? prevState.timeLeft - 1 : prevState.timeLeft
       return {
-        ...this.state,
-        timeLeft: this.state.timeLeft - 1
+        ...prevState,
+        timeLeft: newTimeLeft
       }
     })
   }
@@ -91,6 +98,15 @@ export default class TimerView extends React.Component{
 
   reset = () => {
     this.setState({isWork: true, timeLeft: this.props.secondsPerWork})
+  }
+
+  toggleTimerRunning = () => {
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        isTimerRunning: !prevState.isTimerRunning
+      }
+    });
   }
 }
 
